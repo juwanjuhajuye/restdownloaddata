@@ -1,0 +1,12 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.idea
+/elo-peripherals-refresh-sdk-release
+app/src/restaurant_multi_main.zip
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetDropDown.xml

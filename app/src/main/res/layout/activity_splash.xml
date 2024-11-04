@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/splashImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/splash_img_back"	/>
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="25dp"
+        android:textColor="@color/colorWhite"
+        android:text="System is loading. Please wait a moment."
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
