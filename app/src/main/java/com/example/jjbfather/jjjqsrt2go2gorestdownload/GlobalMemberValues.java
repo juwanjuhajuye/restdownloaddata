@@ -160,42 +160,17 @@ public class GlobalMemberValues {
     // Cloud Server URL - Basic (클라우드 URL 기본값)
 
     /** 2go2go 관련 *************************************************************************************/
-    // Store Server ---------------------------------------------------------------------------
-    // real
-    public static String DATABASE_NAME = "JJJQSRDBMULTI";           // DATABASE 명
-    public static String mssql_pw = "DhksGkDP@02)";                       // DATABASE 비번
-
-    // 모바일 host
-    public static String MOBILE_HOST = "yukdaejangm";
-
-    // Domain 정보
-    public static String CLOUD_HOST = "yukdaejangcloud";
-
-    public static String CLOUD_FTP_IP = "110.234.18.134";
-    public static String CLOUD_SERVER_URL_BASIC = "https://" + CLOUD_HOST + ".2go2go.com/";
-    public static String CLOUD_SERVER_URL = "https://" + CLOUD_HOST + ".2go2go.com/";
-    public static String CLOUD_SERVER_URL_FORHTTPS = "https://" + CLOUD_HOST + ".2go2go.com/";
-
-    // FTP 설정값
-    public static String M_FTPIP = CLOUD_FTP_IP;
-    public static int M_FTPPORT = 5252;
-    public static String M_FTPID = "nzsalondbftp";
-    public static String M_FTPPWD = "wndhkswngkwndP@01^";
-    public static String M_FTPENCODING = "UTF-8";
-    public static String M_FTPBASCIDIR = "";       // FTP 기본 디렉토리
-    //------------------------------------------------------------------------------------------------
-
-//    // Test Server ---------------------------------------------------------------------------
-//    // test
-//    public static String DATABASE_NAME = "jjjqsrdbmulti";             // DATABASE 명
-//    public static String mssql_pw = "DhksGkDP@02)";                           // DATABASE 비번
+//    // Store Server ---------------------------------------------------------------------------
+//    // real
+//    public static String DATABASE_NAME = "JJJQSRDBMULTI";           // DATABASE 명
+//    public static String mssql_pw = "DhksGkDP@02)";                       // DATABASE 비번
 //
 //    // 모바일 host
-//    public static String MOBILE_HOST = "restaurantm";
-//
+//    public static String MOBILE_HOST = "yukdaejangm";
 //
 //    // Domain 정보
-//    public static String CLOUD_HOST = "rcloud";
+//    public static String CLOUD_HOST = "yukdaejangcloud";
+//
 //    public static String CLOUD_FTP_IP = "110.234.18.134";
 //    public static String CLOUD_SERVER_URL_BASIC = "https://" + CLOUD_HOST + ".2go2go.com/";
 //    public static String CLOUD_SERVER_URL = "https://" + CLOUD_HOST + ".2go2go.com/";
@@ -209,6 +184,31 @@ public class GlobalMemberValues {
 //    public static String M_FTPENCODING = "UTF-8";
 //    public static String M_FTPBASCIDIR = "";       // FTP 기본 디렉토리
 //    //------------------------------------------------------------------------------------------------
+
+    // Test Server ---------------------------------------------------------------------------
+    // test
+    public static String DATABASE_NAME = "jjjqsrdbmulti";             // DATABASE 명
+    public static String mssql_pw = "DhksGkDP@02)";                           // DATABASE 비번
+
+    // 모바일 host
+    public static String MOBILE_HOST = "restaurantm";
+
+
+    // Domain 정보
+    public static String CLOUD_HOST = "rcloud";
+    public static String CLOUD_FTP_IP = "110.234.18.134";
+    public static String CLOUD_SERVER_URL_BASIC = "https://" + CLOUD_HOST + ".2go2go.com/";
+    public static String CLOUD_SERVER_URL = "https://" + CLOUD_HOST + ".2go2go.com/";
+    public static String CLOUD_SERVER_URL_FORHTTPS = "https://" + CLOUD_HOST + ".2go2go.com/";
+
+    // FTP 설정값
+    public static String M_FTPIP = CLOUD_FTP_IP;
+    public static int M_FTPPORT = 5252;
+    public static String M_FTPID = "nzsalondbftp";
+    public static String M_FTPPWD = "wndhkswngkwndP@01^";
+    public static String M_FTPENCODING = "UTF-8";
+    public static String M_FTPBASCIDIR = "";       // FTP 기본 디렉토리
+    //------------------------------------------------------------------------------------------------
     /**************************************************************************************************/
 
     /** mssql 관련 변수 ********************************************/
@@ -6842,11 +6842,19 @@ public class GlobalMemberValues {
                     String clouddbIdx = ordersArr2[0];
 
                     // 먼저 해당 데이터가 이미 저장처리된 데이터인지 확인한다.
-                    int clouddbidx_cnt = GlobalMemberValues.getIntAtString(
-                            MssqlDatabase.getResultSetValueToString(
-                                    " select count(*) from salon_sales_kitchenprintingdata_json_torder where clouddbIdx = '" + clouddbIdx + "' "
-                            )
-                    );
+                    int clouddbidx_cnt = 0;
+                    if (!GlobalMemberValues.isStrEmpty(clouddbIdx)) {
+                        String getCountOrder = MssqlDatabase.getResultSetValueToString(
+                                " select count(*) from salon_sales_kitchenprintingdata_json_torder where clouddbIdx = '" + clouddbIdx + "' "
+                        );
+                        if (GlobalMemberValues.isStrEmpty(getCountOrder)) {
+                            clouddbidx_cnt = 1;
+                        } else {
+                            clouddbidx_cnt = GlobalMemberValues.getIntAtString(getCountOrder);
+                        }
+                    } else {
+                        clouddbidx_cnt = 1;
+                    }
 
                     GlobalMemberValues.logWrite("openNewSideMenuStr2", "clouddbidx_cnt : " + clouddbidx_cnt + "\n");
 
